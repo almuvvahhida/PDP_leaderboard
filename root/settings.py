@@ -41,11 +41,6 @@ INSTALLED_APPS = [
     'drf_spectacular_sidecar',
     # JWT
     'rest_framework_simplejwt',
-    # My apps
-    'admin',
-    'student',
-    'teacher',
-
 ]
 
 MIDDLEWARE = [
@@ -59,6 +54,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'root.urls'
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
