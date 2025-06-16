@@ -5,5 +5,3 @@ from django.db import models
 
 # User override
 # Session
-#
-
