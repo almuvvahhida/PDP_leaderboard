@@ -6,6 +6,8 @@ user:
     role (student, teacher, admin)
     group_id
     created_at
+    phone
+    avatar
 
 sessions:
     id
