@@ -16,11 +16,16 @@ sessions:
     last_login
     expires_at
 
+course:
+    id
+    name
+
 groups:
     id
     name
     teacher_id
     created_at
+    course_id
 
 homework:
     id
@@ -43,6 +48,7 @@ submissions:
     submitted_at
     ai_grade
     final_grade
+    final_grade_description
     ai_feedback
     created_at
 
@@ -57,12 +63,11 @@ Grades:
     id
     submission_id
     ai_task_completeness
-    ai_task_completeness
     ai_code_quality
     ai_correctness
     ai_total
-    final_task_completeness
-    final_code_quality
+    final_task_completeness -> percentage
+    final_code_quality ->
     final_correctness
     teacher_total
     ai_feedback
