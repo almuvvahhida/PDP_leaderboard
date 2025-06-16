@@ -1,0 +1,72 @@
+
+user:
+    id
+    fullname
+    password
+    role (student, teacher, admin)
+    group_id
+    created_at
+
+sessions:
+    id
+    user_id
+    token
+    device_name
+    ip_address
+    last_login
+    expires_at
+
+groups:
+    id
+    name
+    teacher_id
+    created_at
+
+homework:
+    id
+    title
+    description
+    points
+    start_date
+    deadline
+    line_limit
+    teacher_id
+    group_id
+    file_extension
+    ai_grading_prompt
+    created_at
+
+submissions:
+    id
+    homework_id
+    student_id
+    submitted_at
+    ai_grade
+    final_grade
+    ai_feedback
+    created_at
+
+SubmissionFiles:
+    id
+    submission_id
+    file_name
+    content
+    line_count
+
+Grades:
+    id
+    submission_id
+    ai_task_completeness
+    ai_task_completeness
+    ai_code_quality
+    ai_correctness
+    ai_total
+    final_task_completeness
+    final_code_quality
+    final_correctness
+    teacher_total
+    ai_feedback
+    task_completeness_feedback
+    code_quality_feedback
+    correctness_feedback
+    modified_by_teacher
