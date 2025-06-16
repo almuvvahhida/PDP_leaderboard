@@ -67,9 +67,9 @@ Grades:
     ai_correctness
     ai_total
     final_task_completeness -> percentage
-    final_code_quality ->
-    final_correctness
-    teacher_total
+    final_code_quality -> percentage
+    final_correctness -> percentage
+    teacher_total -> int (1-100)
     ai_feedback
     task_completeness_feedback
     code_quality_feedback
