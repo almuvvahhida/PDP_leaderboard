@@ -42,9 +42,9 @@ class User(AbstractUser):
         ADMIN = 'Admin', 'admin'
         TEACHER = 'Teacher', 'teacher'
 
-    role = CharField(max_length=15, choices=RoleType, default=RoleType.STUDENT)
+    role = CharField(max_length=15, choices=RoleType.choices, default=RoleType.STUDENT)
     phone = CharField(max_length=15, unique=True)
-    group = ForeignKey('student.Group', SET_NULL, related_name='users')
+    group = ForeignKey('student.Group',SET_NULL , null = True, related_name='users')
     avatar = ImageField()
     USERNAME_FIELD = 'phone'
     REQUIRED_FIELDS = []
