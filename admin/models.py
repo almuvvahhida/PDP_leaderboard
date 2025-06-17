@@ -1,12 +1,9 @@
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import AbstractUser, UserManager
-from django.db.models import ForeignKey, SET_NULL, ImageField
+from django.db.models import ForeignKey, SET_NULL, ImageField, Model, CASCADE
 from django.db.models.enums import TextChoices
-from django.db.models.fields import CharField
+from django.db.models.fields import CharField, DateTimeField, GenericIPAddressField
 
-
-# User override
-# Session
 
 class CustomerUser(UserManager):
     def _create_user_object(self, email, password, **extra_fields):
@@ -52,3 +49,12 @@ class User(AbstractUser):
     USERNAME_FIELD = 'phone'
     REQUIRED_FIELDS = []
     objects = CustomerUser()
+
+
+class Session(Model):
+    user = ForeignKey('admin.User', CASCADE, related_name='sessions')
+    token = CharField(max_length=255, unique=True)
+    device_name = CharField(max_length=100)
+    ip_address = GenericIPAddressField()
+    last_login = DateTimeField(auto_now=True)
+    expires_at = DateTimeField()
