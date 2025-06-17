@@ -41,6 +41,10 @@ INSTALLED_APPS = [
     'drf_spectacular_sidecar',
     # JWT
     'rest_framework_simplejwt',
+    # My apps
+    'admin',
+    'student',
+    'teacher'
 
 ]
 
