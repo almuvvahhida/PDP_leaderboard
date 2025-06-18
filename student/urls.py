@@ -1,7 +1,7 @@
 from django.urls import path
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
-from admin.views import SessionViewSet, TeacherViewSet
+
 from student.views import GroupViewSet, CourseViewSet, SubmissionViewSet, SubmissionFilesViewSet
 
 urlpatterns = [

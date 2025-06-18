@@ -1,16 +1,17 @@
 from django.shortcuts import render
+from rest_framework.generics import ListAPIView, CreateAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 from student.models import Course, Group, Submission, SubmissionFiles
 from student.serializers import CourseSerializer, GroupSerializer, SubmissionSerializer, SubmissionFilesSerializer
 
 
-class CourseViewSet(ModelViewSet):
+class CourseViewSet(ListAPIView):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
 
 
-class GroupViewSet(ModelViewSet):
+class GroupViewSet(ListAPIView):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
     permission_classes = [IsAuthenticated]
@@ -26,27 +27,14 @@ class GroupViewSet(ModelViewSet):
 
         return Group.objects.all()
 
-class SubmissionViewSet(ModelViewSet):
+class SubmissionViewSet(CreateAPIView):
     queryset = Submission.objects.all()
     serializer_class = SubmissionSerializer
-    permission_classes = [IsAuthenticated]
-
-    def get_queryset(self):
-        user = self.request.user
-        role = user.role.lower()
-
-        if role == 'teacher':
-            return Submission.objects.filter()
-        elif role == 'student':
-            return Submission.objects.filter(student = user )
-
-        return  Submission.objects.all()
 
 
-class SubmissionFilesViewSet(ModelViewSet):
-    queryset = SubmissionFiles.objects.all()
+class SubmissionFilesViewSet(ListAPIView):
+    queryset = Submission.objects.all()
     serializer_class = SubmissionFilesSerializer
-    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         user = self.request.user
