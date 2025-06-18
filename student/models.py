@@ -30,3 +30,4 @@ class SubmissionFiles(Model):
     file_name =  CharField( max_length = 255)
     content = CharField( max_length = 255)
     line_count = IntegerField(null = True)
+
