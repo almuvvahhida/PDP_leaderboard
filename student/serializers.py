@@ -9,6 +9,7 @@ class CourseSerializer(serializers.ModelSerializer):
         fields = 'id' , 'name'
 
 
+
 class GroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = Group
