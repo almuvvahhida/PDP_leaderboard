@@ -1,6 +1,16 @@
-from django.urls import path, include
+from django.urls import path
 
+from superuser.views import AdminTeacherListAPIView, AdminTeacherCreateAPIView, AdminTeacherUpdateAPIView, \
+    AdminTeacherDestroyAPIView, AdminStudentListAPIView, AdminStudentCreateAPIView, AdminStudentUpdateAPIView, \
+    AdminStudentDestroyAPIView
 
 urlpatterns = [
-
+    path('admin-teachers', AdminTeacherListAPIView.as_view()),
+    path('admin-teacher/create', AdminTeacherCreateAPIView.as_view()),
+    path('admin-teacher/<int:pk>/update', AdminTeacherUpdateAPIView.as_view()),
+    path('admin-teacher/<int:pk>/delete', AdminTeacherDestroyAPIView.as_view()),
+    path('admin-teachers', AdminStudentListAPIView.as_view()),
+    path('admin-teacher/create', AdminStudentCreateAPIView.as_view()),
+    path('admin-teacher/<int:pk>/update', AdminStudentUpdateAPIView.as_view()),
+    path('admin-teacher/<int:pk>/delete', AdminStudentDestroyAPIView.as_view()),
 ]
