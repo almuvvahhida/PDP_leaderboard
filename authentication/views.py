@@ -1,14 +1,11 @@
-from django.shortcuts import render
 from drf_spectacular.utils import extend_schema
 from rest_framework.generics import DestroyAPIView
 from rest_framework.response import Response
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from authentication.models import Session, User
-from superuser.serializers import SessionSerializer
+from authentication.serializers import SessionSerializer
 
-
-# Create your views here.
 
 @extend_schema(tags=['auth'])
 class CustomTokenObtainPairView(TokenObtainPairView):
@@ -27,16 +24,18 @@ class CustomTokenObtainPairView(TokenObtainPairView):
                 Session.objects.create(user=user, device_name=device_info, ip_address=device_ip)
         return response
 
+
 '''10.10.1.91:8000'''
 '''993583231'''
+
+
 @extend_schema(tags=['auth'])
 class CustomTokenRefreshView(TokenRefreshView):
     pass
+
 
 class SessionDestroyAPIView(DestroyAPIView):
     queryset = Session.objects.all()
     serializer_class = SessionSerializer
     lookup_field = 'pk'
     lookup_url_kwarg = 'session_pk'
-
-

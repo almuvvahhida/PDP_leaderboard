@@ -1,16 +1,18 @@
 import pytest
 from django.contrib.auth.hashers import make_password
 from rest_framework.test import APIClient
+
 from authentication.models import User, Session
 
 
 class TestAuth:
-    @pytest.fixture # clone database
+    @pytest.fixture  # clone database
     def api_client(self):
-        user = User.objects.create(first_name="Botir" ,  phone="993583231" , password=make_password("1"), role=User.RoleType.TEACHER.value)
-        Session.objects.create(device_name="Linux 54" ,user= user, ip_address="127.9.8.1")
-        Session.objects.create(device_name="Linux 53" ,user= user, ip_address="10.10.8.1")
-        Session.objects.create(device_name="Mac 55" ,user= user, ip_address="10.11.8.1")
+        user = User.objects.create(first_name="Botir", phone="993583231", password=make_password("1"),
+                                   role=User.RoleType.TEACHER.value)
+        Session.objects.create(device_name="Linux 54", user=user, ip_address="127.9.8.1")
+        Session.objects.create(device_name="Linux 53", user=user, ip_address="10.10.8.1")
+        Session.objects.create(device_name="Mac 55", user=user, ip_address="10.11.8.1")
         return APIClient()
 
     @pytest.mark.django_db
@@ -19,7 +21,7 @@ class TestAuth:
             "phone": "993583231",
             "password": "1"
         }, format="json")
-        assert isinstance(response.data , list) == True
+        assert isinstance(response.data, list) == True
         session_first_pk = response.data[0].get("id")
         delete_url = f'http://localhost:8000/api/v1/session-drop/{session_first_pk}'
         response = api_client.delete(delete_url)
@@ -31,7 +33,7 @@ class TestAuth:
         response = api_client.post("http://localhost:8000/api/v1/login", {
             "phone": "993583231",
             "password": "1"
-        } ,headers=headers, format="json")
+        }, headers=headers, format="json")
         assert response.status_code == 200
         assert isinstance(response.data, dict) == True
         assert "access" in response.data.keys() and "refresh" in response.data.keys()
@@ -43,9 +45,3 @@ class TestAuth:
     @pytest.mark.django_db
     def test_teacher_edit(self, api_client):
         pass
-
-
-
-
-
-
