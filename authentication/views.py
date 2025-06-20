@@ -27,12 +27,12 @@ class CustomTokenObtainPairView(TokenObtainPairView):
                 Session.objects.create(user=user, device_name=device_info, ip_address=device_ip)
         return response
 
-'''10.10.1.91:8000'''
-'''993583231'''
+
 @extend_schema(tags=['auth'])
 class CustomTokenRefreshView(TokenRefreshView):
     pass
 
+@extend_schema(tags=['auth'])
 class SessionDestroyAPIView(DestroyAPIView):
     queryset = Session.objects.all()
     serializer_class = SessionSerializer

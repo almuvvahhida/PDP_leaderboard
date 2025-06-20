@@ -9,14 +9,14 @@ class Course(Model):
 
 class Group(Model):
     name = CharField( max_length = 255)
-    teacher = ForeignKey('admin.User' , on_delete = CASCADE , related_name = 'teacher_groups')
+    teacher = ForeignKey('authentication.User' , on_delete = CASCADE , related_name = 'teacher_groups')
     created_at = DateTimeField(auto_now = True)
     course = ForeignKey('student.Course' , on_delete = CASCADE , related_name= 'groups')
 
 
 class Submission(Model):
     homework = ForeignKey('teacher.HomeWork' , on_delete= CASCADE , related_name = 'submissions')
-    student = ForeignKey('admin.User' , on_delete = CASCADE , related_name = 'submissions')
+    student = ForeignKey('authentication.User' , on_delete = CASCADE , related_name = 'submissions')
     submitted_at = DateTimeField(auto_now=True)
     ai_grade = IntegerField()
     final_grade = IntegerField()
