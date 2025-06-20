@@ -74,3 +74,5 @@ class AdminStudentDestroyAPIView(DestroyAPIView):  # DELETE
     serializer_class = UserSerializer
     queryset = User.objects.filter(role=User.RoleType.STUDENT)
     lookup_field = 'pk'
+
+

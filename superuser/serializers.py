@@ -8,8 +8,15 @@ class UserSerializer(ModelSerializer):
 
     class Meta:
         model = User
-        fields = 'first_name', 'last_name', 'fullname', 'phone', 'avatar'  # 'group'
-        read_only_fields = 'id', 'role'
+        fields = 'first_name', 'last_name', 'fullname', 'phone', 'avatar',  # 'group'
+        read_only_fields = 'id', 'role',
 
     def get_fullname(self, obj):
         return f"{obj.first_name} {obj.last_name}".strip()
+
+
+
+# class GroupSerializer(ModelSerializer):
+#     class Meta:
+#         model = Group
+#         fields = ''
