@@ -1,6 +1,6 @@
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import AbstractUser, UserManager
-from django.db.models import ForeignKey, ImageField, Model, CASCADE, SET_NULL
+from django.db.models import ForeignKey, ImageField, Model, CASCADE
 from django.db.models.enums import TextChoices
 from django.db.models.fields import CharField, DateTimeField
 
@@ -9,7 +9,7 @@ class CustomerUser(UserManager):
     def _create_user_object(self, phone, password, **extra_fields):
         if not phone:
             raise ValueError("The given phone must be set")
-
+        phone = ''.join(filter(str.isdigit, phone))[-15:]
         user = self.model(phone=phone, **extra_fields)
         user.password = make_password(password)
         return user

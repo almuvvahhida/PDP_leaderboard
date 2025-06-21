@@ -1,4 +1,5 @@
 import pytest
+from django.contrib.auth.hashers import make_password
 from rest_framework.test import APIClient
 
 from authentication.models import User
@@ -7,6 +8,12 @@ from authentication.models import User
 class TestTeacher:
     @pytest.fixture
     def api_client(self):
+        user = User.objects.create(first_name="zxcvbnm", last_name='qwertyuiop', phone="993583231",
+                                   password=make_password("1"),
+                                   role=User.RoleType.TEACHER.value)
+        User.objects.create(first_name="zxcvbnm", last_name='qwertyuiop', phone="123456780",
+                            password=make_password("1"),
+                            role=User.RoleType.TEACHER.value)
         return APIClient()
 
     @pytest.mark.django_db
@@ -14,7 +21,7 @@ class TestTeacher:
         response = api_client.post("http://localhost:8000/api/v1/admin-teacher/create", {
             'first_name': 'Alex',
             'last_name': 'Johnson',
-            'phone': '123456780',
+            'phone': '234523629',
             'password': '1',
         }, format='multipart')
 
@@ -31,10 +38,19 @@ class TestTeacher:
 
     @pytest.mark.django_db
     def test_teacher_edit(self, api_client):
-        teacher = User.objects.create(first_name='David', last_name='Johnson', phone='1234560987', role=User.RoleType.TEACHER)
+        user = User.objects.get(phone='993583231')
+        response = api_client.put(
+            f"http://localhost:8000/api/v1/admin-teachers/{user.pk}/",
+            {'first_name': 'updated', 'last_name': 'name', 'phone': '1234560987'}, format='json')
+
+        assert response.status_code == 200
+        user.refresh_from_db()
+        assert user.first_name == 'updated'
+        assert user.last_name == 'name'
 
     @pytest.mark.django_db
     def test_teacher_delete(self, api_client):
-        pass
-
-
+        user = User.objects.get(phone='993583231')
+        response = api_client.delete(f"http://localhost:8000/api/v1/admin-teachers/{user.pk}/")
+        assert response.status_code == 204
+        assert not User.objects.filter(phone='993583231').exists()
