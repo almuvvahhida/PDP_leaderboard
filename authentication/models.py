@@ -1,6 +1,6 @@
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import AbstractUser, UserManager
-from django.db.models import ForeignKey, ImageField, Model, CASCADE
+from django.db.models import ForeignKey, ImageField, Model, CASCADE, SET_NULL
 from django.db.models.enums import TextChoices
 from django.db.models.fields import CharField, DateTimeField
 
@@ -45,7 +45,7 @@ class User(AbstractUser):
     username = None
     role = CharField(max_length=15, choices=RoleType, default=RoleType.STUDENT)
     phone = CharField(max_length=15, unique=True)
-    # group = ForeignKey('student.Group', SET_NULL, blank=True, null=True, related_name='users')
+    group = ForeignKey('student.Group', SET_NULL, blank=True, null=True, related_name='users')
     avatar = ImageField(upload_to='users/', null=True, blank=True)
     USERNAME_FIELD = 'phone'
     email = None

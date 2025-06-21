@@ -1,7 +1,6 @@
-from django.shortcuts import render
 from rest_framework.generics import ListAPIView, CreateAPIView
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.viewsets import ModelViewSet
+
 from student.models import Course, Group, Submission, SubmissionFiles
 from student.serializers import CourseSerializer, GroupSerializer, SubmissionSerializer, SubmissionFilesSerializer
 
@@ -26,6 +25,7 @@ class GroupViewSet(ListAPIView):
             return Group.objects.filter(id=user.group.id)
 
         return Group.objects.all()
+
 
 class SubmissionViewSet(CreateAPIView):
     queryset = Submission.objects.all()
