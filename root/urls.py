@@ -12,3 +12,7 @@ urlpatterns = [
 
     path('api/v1/', include('authentication.urls'))
 ]
+
+urlpatterns+=[
+    path("api/v1/",include("student.urls"))
+]
