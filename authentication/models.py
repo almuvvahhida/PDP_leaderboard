@@ -45,8 +45,8 @@ class User(AbstractUser):
     username = None
     role = CharField(max_length=15, choices=RoleType, default=RoleType.STUDENT)
     phone = CharField(max_length=15, unique=True)
-    group = ForeignKey('student.Group', SET_NULL, blank=True, null=True, related_name='users')
-    avatar = ImageField(upload_to='users/')
+    # group = ForeignKey('student.Group', SET_NULL, blank=True, null=True, related_name='users')
+    avatar = ImageField(upload_to='users/', null=True, blank=True)
     USERNAME_FIELD = 'phone'
     email = None
     REQUIRED_FIELDS = []
